@@ -213,7 +213,7 @@ def s3bench(
     cmd = f"s3bench -accessKey={access_key} -accessSecret={secret_key} " \
           f"-bucket={bucket} -endpoint={end_point} -numClients={num_clients} " \
           f"-numSamples={num_sample} -objectNamePrefix={obj_name_pref} -objectSize={obj_size} " \
-          f"-skipSSLCertVerification={not validate_certs} "
+          f"-skipSSLCertVerification={not validate_certs} -skipRead "
     if max_retries:
         cmd = cmd + f"-s3MaxRetries={max_retries} "
     if response_header_timeout:
@@ -229,7 +229,7 @@ def s3bench(
     if skip_cleanup:
         cmd = cmd + "-skipCleanup "
     if validate:
-        cmd = cmd + "-validate "
+        LOGGER.info("YJC: Skipping validation")
     if verbose:
         cmd = cmd + "-verbose "
     cmd = f"{cmd}>> {log_path} 2>&1"
